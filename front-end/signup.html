@@ -22,9 +22,10 @@
     <div class="container">
         <h1>Sign Up</h1>
         <form class="form-group" action="signup.php" method="post">
+            <small id="help" class="form-text text-muted">Fields with * is requred</small>
             <div class="form-group">
-                <label for="inputName">Name</label>
-                <input type="text" class="form-control" id="inputName">
+                <label for="inputName">Name<span>*</span> </label>
+                <input type="text" class="form-control" id="inputName" required>
             </div>
             <div class="form-group">
                 <label for="inputName">Phone</label>
@@ -32,12 +33,12 @@
                 <small id="phoneHelp" class="form-text text-muted">e.g. xxx-xxx-xxxx</small>
             </div>
             <div class="form-group">
-                <label for="inputEmail1">Email</label>
-                <input type="email" class="form-control" id="inputEmail1">
+                <label for="inputEmail1">Email<span>*</span></label>
+                <input type="email" class="form-control" id="inputEmail1" required>
             </div>
             <div class="form-group">
-                <label for="inputPassword1">Password</label>
-                <input type="password" class="form-control" id="inputPassword1">
+                <label for="inputPassword1">Password<span>*</span></label>
+                <input type="password" class="form-control" id="inputPassword1" required>
             </div>
             <div class="form-group form-check">
                  <input type="checkbox" class="form-check-input" id="subscribe">

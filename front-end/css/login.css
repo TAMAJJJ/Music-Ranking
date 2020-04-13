@@ -14,3 +14,11 @@ h1{
     padding: 3%;
     box-shadow: 5px 6px 2px 2px #cf7500;
 }
+
+span{
+    color: red;
+}
+
+#help{
+    text-align: right;
+}
