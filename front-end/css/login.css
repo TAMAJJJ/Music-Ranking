@@ -1,0 +1,14 @@
+body{
+    background-color: lightgrey;
+}
+
+h1{
+    text-align: center;
+}
+
+.container{
+    margin-top: 10%;
+    width: 30%;
+    background-color: white;
+    padding: 3%;
+}
