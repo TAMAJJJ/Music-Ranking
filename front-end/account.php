@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -8,31 +7,47 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/search.css">
     <!--  Font -->
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="navbar navbar-dark" style="background-color: #f0a500;">
-        <a class="navbar-brand" href="#">
-            <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-            Music Ranking
-        </a>
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link active" href="main.html">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="musics.html">All Musics</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="post.html">Post</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="account.html">Account</a>
-            </li>
-        </ul>
-    </nav>
+     <?php include "inc/nav.php"; ?>
+
+    <div class="left">
+        <?php
+            require "connect.php";
+            $sql = "USE dzhang29_1;";
+            if ($conn->query($sql) === TRUE) {
+               //echo "using Database dzhang29_1";
+            } else {
+               echo "Error using  database: " . $conn->error;
+            }
+            session_start();
+
+            $userEmail = $_SESSION['login_user'];
+
+            $sql = "SELECT * FROM USER WHERE USER.Email = '$userEmail';";
+            $result = $conn->query($sql);
+
+            while($row = mysqli_fetch_assoc($result)){
+                $userID = $row['UserID'];
+                $name = $row['Name'];
+                $phone = $row['Phone'];
+                $email= $row['Email'];
+                $Subscriber= $row['Subscriber'];
+            }
+
+            echo "<h1>$name</h1>"
+        ?>
+
+
+    Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+
+    </div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

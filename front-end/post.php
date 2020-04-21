@@ -14,26 +14,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark" style="background-color: #f0a500;">
-        <a class="navbar-brand" href="#">
-            <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-            Music Ranking
-        </a>
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link active" href="main.html">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="musics.html">All Musics</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="post.html">Post</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="account.html">Account</a>
-            </li>
-        </ul>
-    </nav>
+<?php include "inc/nav.php"; ?>
 
     <div class="container">
 
@@ -41,55 +22,27 @@
                 <div class="form-group row">
                     <label for="userid" class="col-sm-2 col-form-label">UserID</label>
                     <div class="col-sm-10">
-                        <input type="text" id="userid" name="userid" placeholder="UserID">
+                        <input type="text" id="userid" name="user_id" placeholder="UserID">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="time" class="col-sm-2 col-form-label">Date</label>
+                    <label for="date" class="col-sm-2 col-form-label">Date</label>
                     <div class="col-sm-10">
-                        <input type="date" id="time" name="time" placeholder="Date">
+                        <input type="date" id="date" name="date" placeholder="Date">
                     </div>
                 </div>
-
-                <div class="form-group row">
-                    <label for="albumid" class="col-sm-2 col-form-label">AlbumID</label>
-                    <div class="col-sm-10">
-                        <input type="text" id="albumid" name="albumid">
-                    </div>
-                </div>
-
-            <div class="form-group row">
-                <label for="albumtitle" class="col-sm-2 col-form-label">Album Title</label>
-                <div class="col-sm-10">
-                    <input type="text" id="albumtitle" name="albumtitle">
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="trackid" class="col-sm-2 col-form-label">TrackID</label>
-                <div class="col-sm-10">
-                    <input type="text" id="trackid" name="trackid">
-                </div>
-            </div>
 
             <div class="form-group row">
                 <label for="title" class="col-sm-2 col-form-label">Music Title</label>
                 <div class="col-sm-10">
-                    <input type="text" id="title" name="title">
+                    <input type="text" id="title" name="music_title">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="producer" class="col-sm-2 col-form-label">Producer</label>
+                <label for="artist" class="col-sm-2 col-form-label">artist</label>
                 <div class="col-sm-10">
-                    <input type="text" id="producer" name="producer">
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="publisheddate" class="col-sm-2 col-form-label">Published Date</label>
-                <div class="col-sm-10">
-                    <input type="date" id="publisheddate" name="publisheddate">
+                    <input type="text" id="artist" name="artist">
                 </div>
             </div>
 
@@ -103,7 +56,7 @@
             <div class="form-group row">
                 <label for="publisheddate" class="col-sm-2 col-form-label">Comments</label>
                 <div class="col-sm-10">
-                    <textarea name="comment" rows="8" cols="80"></textarea>
+                    <textarea name="comments" rows="8" cols="80"></textarea>
                 </div>
             </div>
 

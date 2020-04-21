@@ -8,16 +8,17 @@
         echo "Error using  database: " . $conn->error;
     }
 
-    $user_id = $_POST['user_id'];
-    $date = $_POST['date'];
-    $music_title = $_POST['music_title'];
+    $userid = $_POST['userid'];
+    $time = $_POST['time'];
+    $trackid = $_POST['trackid'];
+    $title = $_POST['title'];
     $artist = $_POST['artist'];
-    $published_date = $_POST['published_date'];
-    $points = $_POST['points'];
-    $comments = $_POST['comments'];
-    
+    $albumid = $_POST['albumid'];
+    $albumtitle = $_POST['albumtitle'];
+    $producer = $_POST['producer'];
+    $publisheddate = $_POST['publisheddate'];
 
-    $sql = "INSERT INTO MUSIC VALUES ($music_id,'$music_title','$published_date',$publisher, $artist);";
+    $sql = "INSERT INTO MUSIC VALUES ($trackid,'$title','$artist',$albumid);";
     $result = $conn->query($sql);
 
     if ($result === TRUE) {
@@ -26,7 +27,7 @@
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 
-    $sql = "INSERT INTO ALBUM VALUES ($albumid,'$albumtitle',$published_date,'$producer');";
+    $sql = "INSERT INTO ALBUM VALUES ($albumid,'$albumtitle',$publisheddate,'$producer');";
        $result = $conn->query($sql);
 
        if ($result === TRUE) {
@@ -58,9 +59,9 @@
          $result = $conn->query($sql);
           echo"<h2>ALBUM</h2>";
           echo"<table border = '1'>";
-          echo"<tr><td>AlbumID</td><td>Title</td><td>published_date</td><td>Producer</td></tr>\n";
+          echo"<tr><td>AlbumID</td><td>Title</td><td>PublishedDate</td><td>Producer</td></tr>\n";
           while($row = mysqli_fetch_assoc($result)){
-              echo"<tr><td>{$row['AlbumID']}</td><td>{$row['Title']}</td><td>{$row['published_date']}</td><td>{$row['Producer']}</td></tr>\n";
+              echo"<tr><td>{$row['AlbumID']}</td><td>{$row['Title']}</td><td>{$row['PublishedDate']}</td><td>{$row['Producer']}</td></tr>\n";
           }
           echo"</table>";
        
@@ -75,18 +76,4 @@
           echo"</table>";
 
     $conn->close();
-
-    //update ranking, calculate avg points for each music, and change points ranking table
-    
-    //count how many reviews are there
-    $sql = "SELECT MusicTitle,Artist FROM MUSIC;";
-    $result = $conn->query($sql); 
-    while($row = mysqli_fetch_assoc($result)){
-        $title = $row['MusicTitle'];
-        $select_reviews = "SELECT MUSIC.MusicTitle,MUSIC.Artist,REVIEW.Points,REVIEW.Review FROM MUSIC LEFT JOIN REVIEW ON MUSIC.MusicID = REVIEW.MusicID WHERE MusicTitle = '$title'";
-        $review_result = $conn->query($select_reviews);
-        $review_count = mysqli_num_rows($review_result);
-
-        echo "<li class='list-group-item d-flex justify-content-between align-items-center'><strong>{$row['MusicTitle']}</strong> BY {$row['Artist']}<span class='badge badge-primary badge-pill'>$review_count</span></li>";
-    }
 ?>
