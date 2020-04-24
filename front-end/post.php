@@ -16,51 +16,42 @@
 <body>
 <?php include "inc/nav.php"; ?>
 
-    <div class="container">
+    <h1 style="text-align:center; margin-top:3%;">Post a New Review</h1>
+    <div class="container" style="width:65%; box-shadow: 5px 5px 8px #888888;">
+
 
         <form name="form" method="post" action="share_music.php">
-                <div class="form-group row">
-                    <label for="userid" class="col-sm-2 col-form-label">UserID</label>
-                    <div class="col-sm-10">
-                        <input type="text" id="userid" name="user_id" placeholder="UserID">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="date" class="col-sm-2 col-form-label">Date</label>
-                    <div class="col-sm-10">
-                        <input type="date" id="date" name="date" placeholder="Date">
-                    </div>
-                </div>
+            <small id="help" class="form-text" style="color:red; text-align:right;">Fields with * is requred</small>
 
             <div class="form-group row">
-                <label for="title" class="col-sm-2 col-form-label">Music Title</label>
+                <label for="music_title" class="col-sm-2 col-form-label">Music Title<span style="color:red;">*</span></label>
                 <div class="col-sm-10">
-                    <input type="text" id="title" name="music_title">
+                    <input type="text" id="title" name="music_title" required>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="artist" class="col-sm-2 col-form-label">artist</label>
+                <label for="artist" class="col-sm-2 col-form-label">Artist<span style="color:red;">*</span></label>
                 <div class="col-sm-10">
-                    <input type="text" id="artist" name="artist">
+                    <input type="text" id="artist" name="artist" required>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="points" class="col-sm-2 col-form-label">Points</label>
+                <label for="points" class="col-sm-2 col-form-label">Points<span style="color:red;">*</span></label>
                 <div class="col-sm-10">
-                    <input type="number" id="points" name="points" step="0.1" min="0" max="10">
+                    <input type="number" id="points" name="points" step="0.1" min="0" max="10" required>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="publisheddate" class="col-sm-2 col-form-label">Comments</label>
+                <label for="comments" class="col-sm-2 col-form-label">Comments</label>
                 <div class="col-sm-10">
                     <textarea name="comments" rows="8" cols="80"></textarea>
                 </div>
             </div>
 
-            <input class="btn btn-light" type="submit" value="Submit">
+            <input class="btn btn-light" type="submit" value="Submit" style="float:right;">
         </form>
     </div>
 

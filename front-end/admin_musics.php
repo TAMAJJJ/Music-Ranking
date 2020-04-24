@@ -14,8 +14,8 @@
     <body>
 
         <nav class="navbar navbar-dark" style="background-color: #f0a500;">
-    <a class="navbar-brand" href="#">
-        <img src="" width="30" height="30" class="d-inline-block align-top" alt="">
+    <a class="navbar-brand" href="admin_main.php">
+        <img src="../pics/musical-note.png" width="30" height="30" class="d-inline-block align-top" alt="">
         Music Ranking
     </a>
     <ul class="nav justify-content-end">
@@ -23,7 +23,7 @@
             <a class="nav-link active" href="admin_main.php">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="admin_musics.php">Musics</a>
+            <a class="nav-link" href="admin_musics.php">Comments</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="admin_allusers.php">User Info</a>
@@ -31,7 +31,7 @@
     </ul>
 </nav>
 
-<div class="container">
+<div class="container" style="margin-top:3%;">
     <?php
         require "connect.php";
         $sql = "USE dzhang29_1;";
@@ -40,54 +40,57 @@
         } else {
            echo "Error using  database: " . $conn->error;
         }
-        $sql = "SELECT * FROM USER;";
-       $result = $conn->query($sql);
 
-       echo"<table border = '1' class='table'>";
-       echo"<thead class='thead-dark'><tr><th>UserID</th><th>Name</th><th>Phone</th><th>Email</th><th>Subscriber</th></tr></thead>\n";
-       echo"<tbody>";
-       $rank = 0;
-       while($row = mysqli_fetch_assoc($result)){
-           $rank = $rank + 1;
-           echo"<tr><th scope='row'>{$row['UserID']}</th><td>{$row['Name']}</td><td>{$row['Phone']}</td><td>{$row['Email']}</td><td>{$row['Subscriber']}</td></tr>\n";
-       }
-       echo"</tbody>";
-       echo"</table>";
     ?>
 
-    <form class="search" action="admin_allusers.php" method="get">
-        <label for="name">User Name: </label>
-        <input type="text" name="name">
+    <form class="search" action="admin_musics.php" method="post">
+        <label for="musicTitle">Manage Comments</label>
+        <input type="text" name="musicTitle" placeholder="Music Title" required>
 
         <button type="submit" name="button">Search</button>
     </form>
 
     <?php
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<div class = 'result'>";
-            require "connect.php";
-            $sql = "USE dzhang29_1;";
-            if ($conn->query($sql) === TRUE) {
-               //echo "using Database dzhang29_1";
-            } else {
-               echo "Error using  database: " . $conn->error;
+            // require "connect.php";
+            // $sql = "USE dzhang29_1;";
+            // if ($conn->query($sql) === TRUE) {
+            //    //echo "using Database dzhang29_1";
+            // } else {
+            //    echo "Error using  database: " . $conn->error;
+            // }
+
+            $musicTitle = $_POST['musicTitle'];
+
+
+                $sql = "SELECT MUSIC.MusicTitle,MUSIC.Artist,REVIEW.Points,REVIEW.Comments,REVIEW.ReviewID,REVIEW.Date FROM MUSIC LEFT JOIN REVIEW ON MUSIC.MusicID = REVIEW.MusicID WHERE MusicTitle = '$musicTitle' ORDER BY REVIEW.Date;";
+               $result = $conn->query($sql);
+
+               echo"<table class='table'>";
+                   echo"<thead class='thead-light'><tr><th>Date</th><th>Title</th><th>Artist</th><th>Points</th><th style='width:50%;'>Comments</th><th>&ensp; &ensp;</th></tr></thead>\n";
+                   echo"<tbody>";
+                   while($row = mysqli_fetch_assoc($result)){
+                       $reviewID = $row['ReviewID'];
+                       echo"<tr><th scope='row'>{$row['Date']}</th><td>{$row['MusicTitle']}</td><td>{$row['Artist']}</td><td>{$row['Points']}</td><td>{$row['Comments']}</td><td><a href='admin_delete_comment.php?reviewID=$reviewID'>Delete</a></td></tr>\n";
+                   }
+                   echo"</tbody>";
+                echo"</table>";
+
+
+    }else{
+        $sql = "SELECT MUSIC.MusicTitle,MUSIC.Artist,REVIEW.Points,REVIEW.Comments,REVIEW.ReviewID,REVIEW.Date FROM MUSIC LEFT JOIN REVIEW ON MUSIC.MusicID = REVIEW.MusicID ORDER BY REVIEW.Date";
+        $result = $conn->query($sql);
+
+        echo"<table class='table'>";
+            echo"<thead class='thead-light'><tr><th>Date</th><th>Title</th><th>Artist</th><th>Points</th><th style='width:50%;'>Comments</th><th>&ensp; &ensp;</th></tr></thead>\n";
+            echo"<tbody>";
+            while($row = mysqli_fetch_assoc($result)){
+                $reviewID = $row['ReviewID'];
+                echo"<tr><th scope='row'>{$row['Date']}</th><td>{$row['MusicTitle']}</td><td>{$row['Artist']}</td><td>{$row['Points']}</td><td>{$row['Comments']}</td><td><a href='admin_delete_comment.php?reviewID=$reviewID'>Delete</a></td></tr>\n";
             }
-
-            $name = $_GET['name'];
-            $sql = "SELECT * FROM USER WHERE Name = '$name';";
-           $result = $conn->query($sql);
-
-           echo"<table border = '1' class='table'>";
-               echo"<thead class='thead-dark'><tr><th>UserID</th><th>Name</th><th>Phone</th><th>Email</th><th>Subscriber</th></tr></thead>\n";
-               echo"<tbody>";
-               $rank = 0;
-               while($row = mysqli_fetch_assoc($result)){
-                   $rank = $rank + 1;
-                   echo"<tr><th scope='row'>{$row['UserID']}</th><td>{$row['Name']}</td><td>{$row['Phone']}</td><td>{$row['Email']}</td><td>{$row['Subscriber']}</td></tr>\n";
-               }
-               echo"</tbody>";
-               echo"</table>";
-        echo "</div>";
-        }
+            echo"</tbody>";
+         echo"</table>";
+    }
     ?>
 </div>

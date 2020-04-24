@@ -1,14 +1,15 @@
 .container{
     width: 80%;
     background-color: #f0a500;
-    margin: 5% auto;
+    margin: 2% auto;
     padding: 3%;
     color: white;
-    font-family: 'Comic Neue', cursive;
+
 }
 
 body{
     background-color: white;
+    font-family: 'Comic Neue', cursive;
 }
 
 label{

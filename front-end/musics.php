@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/musics.css">
+    <link rel="stylesheet" href="css/main.css">
     <!--  Font -->
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
 </head>
@@ -26,26 +27,27 @@
             } else {
                echo "Error using  database: " . $conn->error;
             }
-            
-            //count how many reviews are there
             $sql = "SELECT MusicTitle,Artist FROM MUSIC;";
-            $result = $conn->query($sql); 
+           $result = $conn->query($sql);
+
+
+
             while($row = mysqli_fetch_assoc($result)){
                 $title = $row['MusicTitle'];
-                $select_reviews = "SELECT MUSIC.MusicTitle,MUSIC.Artist,REVIEW.Points,REVIEW.Review FROM MUSIC LEFT JOIN REVIEW ON MUSIC.MusicID = REVIEW.MusicID WHERE MusicTitle = '$title'";
+                $select_reviews = "SELECT MUSIC.MusicTitle,MUSIC.Artist,REVIEW.Points,REVIEW.Comments FROM MUSIC LEFT JOIN REVIEW ON MUSIC.MusicID = REVIEW.MusicID WHERE MusicTitle = '$title'";
                 $review_result = $conn->query($select_reviews);
                 $review_count = mysqli_num_rows($review_result);
 
                 echo "<li class='list-group-item d-flex justify-content-between align-items-center'><strong>{$row['MusicTitle']}</strong> BY {$row['Artist']}<span class='badge badge-primary badge-pill'>$review_count</span></li>";
-            }
+        }
 
 
          ?>
         </div>
 
         <form class="search" action="musics.php" method="post" style="margin:3% 0; float:right;">
-            <label for="name">Music Name </label>
-            <input type="text" name="musicName">
+            <label for="name">More About the Music</label>
+            <input type="text" name="musicName" placeholder="Music Name" required>
             <!-- <label for="name">Artist Name </label>
             <input type="text" name="artistName"> -->
 
@@ -66,22 +68,15 @@
                 $musicName = trim($_POST['musicName']);
                 //$artistName = trim($_POST['artistName']);
 
-               if($musicName != null){
-                   $sql = "SELECT MUSIC.MusicTitle,MUSIC.Artist,REVIEW.Points,REVIEW.Review,USER.Name FROM (MUSIC LEFT JOIN REVIEW ON MUSIC.MusicID = REVIEW.MusicID) JOIN USER ON REVIEW.UserID = USER.UserID WHERE MusicTitle = '$musicName'";
+
+                   $sql = "SELECT MUSIC.MusicTitle,MUSIC.Artist,REVIEW.Points,REVIEW.Comments,USER.Name FROM (MUSIC LEFT JOIN REVIEW ON MUSIC.MusicID = REVIEW.MusicID) JOIN USER ON REVIEW.UserID = USER.UserID WHERE MusicTitle = '$musicName'";
                    $result = $conn->query($sql);
-                }
 
-              else{
-                  echo '<script>alert("Input is Empty")</script>';
-                  header("Refresh:0;");
-               }
-
-
-               echo"<table border = '1' class='table'>";
-                   echo"<thead class='thead-light'><tr><th>Title</th><th>Artist</th><th>Points</th><th style='width:50%;'>Review</th><th>User Name</th></tr></thead>\n";
+               echo"<table class='table'>";
+                   echo"<thead class='thead-light'><tr><th>Title</th><th>Artist</th><th>Points</th><th style='width:50%;'>Comments</th><th>User Name</th></tr></thead>\n";
                    echo"<tbody>";
                    while($row = mysqli_fetch_assoc($result)){
-                       echo"<tr><th scope='row'>{$row['MusicTitle']}</th><td>{$row['Artist']}</td><td>{$row['Points']}</td><td>{$row['Review']}</td><td>{$row['Name']}</td></tr>\n";
+                       echo"<tr><th scope='row'>{$row['MusicTitle']}</th><td>{$row['Artist']}</td><td>{$row['Points']}</td><td>{$row['Comments']}</td><td>{$row['Name']}</td></tr>\n";
                    }
                    echo"</tbody>";
                    echo"</table>";

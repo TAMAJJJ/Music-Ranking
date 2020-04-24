@@ -38,8 +38,13 @@
       echo '<script>alert("Your Login Name or Password is invalid")</script>';
       header("Refresh:0; url=../front-end/login.html");
    }else{
-      //session_register("myusername");
-      $_SESSION['login_user'] = $email;
+      //find UserID from email
+      $get_email_row = "SELECT * FROM USER WHERE Email = '$email';";
+      $email_row = $conn->query($get_email_row); 
+      $row = $email_row->fetch_assoc();
+      $UserID = $row["UserID"];
+      
+      $_SESSION['UserID'] = $UserID;
 
       //check if User or Admin
       $row = mysqli_fetch_array($select_user_result,MYSQLI_ASSOC);

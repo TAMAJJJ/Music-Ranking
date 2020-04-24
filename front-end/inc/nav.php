@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark" style="background-color: #f0a500;">
-    <a class="navbar-brand" href="#">
-        <img src="" width="30" height="30" class="d-inline-block align-top" alt="">
+    <a class="navbar-brand" href="../front-end/main.php">
+        <img src="../pics/musical-note.png" width="30" height="30" class="d-inline-block align-top" alt="">
         Music Ranking
     </a>
     <ul class="nav justify-content-end">

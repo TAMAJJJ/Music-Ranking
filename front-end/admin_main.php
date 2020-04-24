@@ -14,8 +14,8 @@
 
 <body>
     <nav class="navbar navbar-dark" style="background-color: #f0a500;">
-<a class="navbar-brand" href="#">
-    <img src="" width="30" height="30" class="d-inline-block align-top" alt="">
+<a class="navbar-brand" href="admin_main.php">
+    <img src="../pics/musical-note.png" width="30" height="30" class="d-inline-block align-top" alt="">
     Music Ranking
 </a>
 <ul class="nav justify-content-end">
@@ -23,7 +23,7 @@
         <a class="nav-link active" href="admin_main.php">Home</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="admin_musics.php">Musics</a>
+        <a class="nav-link" href="admin_musics.php">Comments</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="admin_allusers.php">User Info</a>
@@ -32,7 +32,7 @@
 </nav>
 
     <!-- <h1>Welcome <?php htmlspecialchars($_SESSION["login_user"]); ?></h1> -->
-    <div class="container">
+    <div class="container"  style="margin-top:3%;">
         <?php
             require "connect.php";
             $sql = "USE dzhang29_1;";
@@ -41,16 +41,17 @@
             } else {
                echo "Error using  database: " . $conn->error;
             }
-            $sql = "SELECT Points,MusicTitle FROM RANKING JOIN MUSIC ON RANKING.MusicID = MUSIC.MusicID ORDER BY Points DESC;";
+
+            $sql = "SELECT Points,MusicTitle,NumReviews FROM RANKING JOIN MUSIC ON RANKING.MusicID = MUSIC.MusicID ORDER BY Points DESC;";
             $result = $conn->query($sql);
 
-            echo"<table border = '1' class='table'>";
-            echo"<thead class='thead-dark'><tr><th>Rank</th><th>Points</th><th>MusicTitle</th></tr></thead>\n";
+            echo"<table class='table'>";
+            echo"<thead class='thead-dark'><tr><th>Rank</th><th>Points</th><th>Music Title</th><th>No. Reviews</th></tr></thead>\n";
             echo"<tbody>";
             $rank = 0;
             while($row = mysqli_fetch_assoc($result)){
                 $rank = $rank + 1;
-                echo"<tr><th scope='row'>$rank</th><td>{$row['Points']}</td><td>{$row['MusicTitle']}</td></tr>\n";
+                echo"<tr><th scope='row'>$rank</th><td>{$row['Points']}</td><td>{$row['MusicTitle']}</td><td>{$row['NumReviews']}</td></tr>\n";
             }
             echo"</tbody>";
             echo"</table>";

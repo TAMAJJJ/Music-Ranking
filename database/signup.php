@@ -59,7 +59,7 @@
         }
 
         //session_register("myusername");
-        $_SESSION['login_user'] = $email;
+        $_SESSION['UserID'] = $new_UserID;
 
         header('Location: ../front-end/main.php');
     }

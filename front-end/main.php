@@ -16,31 +16,27 @@
 <body>
      <?php include "inc/nav.php"; ?>
 
-    <div class="container">
+    <div class="container" style="margin-top:3%;">
         <?php
             require "connect.php";
             $sql = "USE dzhang29_1;";
             if ($conn->query($sql) === TRUE) {
                //echo "using Database dzhang29_1";
             } else {
-               echo "Error using  database: " . $conn->error;
+               echo "Error using  database: 1" . $conn->error;
             }
             session_start();
 
-            if($_SESSION['login_user']){
-                echo 'Your email is here';
-                print($_SESSION["login_user"]);
-            }
-            $sql = "SELECT Points,MusicTitle FROM RANKING JOIN MUSIC ON RANKING.MusicID = MUSIC.MusicID ORDER BY Points DESC;";
+            $sql = "SELECT Points,MusicTitle,NumReviews FROM RANKING JOIN MUSIC ON RANKING.MusicID = MUSIC.MusicID ORDER BY Points DESC;";
             $result = $conn->query($sql);
-
-            echo"<table border = '1' class='table'>";
-            echo"<thead class='thead-dark'><tr><th>Rank</th><th>Points</th><th>MusicTitle</th></tr></thead>\n";
+            
+            echo"<table class='table'>";
+            echo"<thead class='thead-dark'><tr><th>Rank</th><th>Points</th><th>Music Title</th><th>No. Reviews</th></tr></thead>\n";
             echo"<tbody>";
             $rank = 0;
             while($row = mysqli_fetch_assoc($result)){
                 $rank = $rank + 1;
-                echo"<tr><th scope='row'>$rank</th><td>{$row['Points']}</td><td>{$row['MusicTitle']}</td></tr>\n";
+                echo"<tr><th scope='row'>$rank</th><td>{$row['Points']}</td><td>{$row['MusicTitle']}</td><td>{$row['NumReviews']}</td></tr>\n";
             }
             echo"</tbody>";
             echo"</table>";
